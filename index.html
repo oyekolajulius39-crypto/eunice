@@ -198,6 +198,146 @@
     }
 
     /* =============================================
+       IMAGE CAROUSEL
+       ============================================= */
+    .carousel-section {
+      width: 100%;
+      max-width: 680px;
+      animation: fadeUp 1s 0.4s ease both;
+    }
+
+    .carousel-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--rose);
+      text-align: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .carousel-wrap {
+      position: relative;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1.5px solid rgba(255,255,255,0.9);
+      border-radius: 28px;
+      box-shadow: 0 8px 40px var(--shadow), 0 2px 8px rgba(0,0,0,0.06);
+      overflow: hidden;
+      padding: 1.6rem 1.6rem 1.2rem;
+    }
+
+    /* Slide track */
+    .carousel-track-outer {
+      overflow: hidden;
+      border-radius: 18px;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+      will-change: transform;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      position: relative;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 360px;
+      object-fit: cover;
+      display: block;
+      border-radius: 18px;
+    }
+
+    /* Caption overlay */
+    .slide-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0; right: 0;
+      padding: 1rem 1.2rem 0.9rem;
+      background: linear-gradient(to top, rgba(58,31,59,0.72) 0%, transparent 100%);
+      border-radius: 0 0 18px 18px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: #fff;
+      font-size: 0.95rem;
+      text-align: center;
+      letter-spacing: 0.03em;
+    }
+
+    /* Prev / Next arrows */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 4px 14px var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--purple);
+      z-index: 10;
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .carousel-btn:hover {
+      background: white;
+      transform: translateY(-50%) scale(1.12);
+      box-shadow: 0 6px 20px var(--shadow);
+    }
+
+    .carousel-btn:active { transform: translateY(-50%) scale(0.95); }
+
+    .carousel-btn.prev { left:  -18px; }
+    .carousel-btn.next { right: -18px; }
+
+    /* Dot indicators */
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 1rem;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--lilac);
+      cursor: pointer;
+      transition: transform 0.25s ease, background 0.25s ease, width 0.25s ease;
+    }
+
+    .dot.active {
+      background: var(--rose);
+      width: 22px;
+      border-radius: 4px;
+    }
+
+    /* Slide counter */
+    .carousel-counter {
+      text-align: center;
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-mid);
+      letter-spacing: 0.06em;
+    }
+
+    @media (max-width: 500px) {
+      .carousel-slide img { height: 240px; }
+      .carousel-btn.prev  { left:  -10px; }
+      .carousel-btn.next  { right: -10px; }
+    }
+
+    /* =============================================
        MESSAGE CARD
        ============================================= */
     .message-card {
@@ -428,6 +568,64 @@
       <p class="photo-caption">The most beautiful soul I know 💕</p>
     </section>
 
+    <!-- ====== IMAGE CAROUSEL ====== -->
+    <section class="carousel-section">
+      <h2 class="carousel-title">📸 A walk through our memories</h2>
+
+      <div class="carousel-wrap">
+        <button class="carousel-btn prev" id="prevBtn" aria-label="Previous photo">&#8592;</button>
+
+        <div class="carousel-track-outer">
+          <div class="carousel-track" id="carouselTrack">
+
+            <!--
+              ✏️ ADD / REPLACE CAROUSEL PHOTOS:
+              Each .carousel-slide is one photo.
+              Change src="photo1.jpg" to your actual image paths.
+              Edit the caption text inside .slide-caption.
+              Copy/paste a .carousel-slide block to add more photos.
+            -->
+
+            <div class="carousel-slide">
+              <img src="photo1.jpg" alt="Memory 1"
+                onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22360%22%3E%3Crect width=%22600%22 height=%22360%22 fill=%22%23f9d0e8%22/%3E%3Ctext x=%2250%25%22 y=%2243%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2272%22%3E🌸%3C/text%3E%3Ctext x=%2250%25%22 y=%2265%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2218%22 fill=%22%23b05080%22 font-family=%22sans-serif%22%3EReplace with photo1.jpg%3C/text%3E%3C/svg%3E'" />
+              <div class="slide-caption">Our favourite adventure together 🌿</div>
+            </div>
+
+            <div class="carousel-slide">
+              <img src="photo2.jpg" alt="Memory 2"
+                onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22360%22%3E%3Crect width=%22600%22 height=%22360%22 fill=%22%23e8d0f9%22/%3E%3Ctext x=%2250%25%22 y=%2243%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2272%22%3E💜%3C/text%3E%3Ctext x=%2250%25%22 y=%2265%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2218%22 fill=%22%237040a0%22 font-family=%22sans-serif%22%3EReplace with photo2.jpg%3C/text%3E%3C/svg%3E'" />
+              <div class="slide-caption">That time we laughed until we cried 😂💕</div>
+            </div>
+
+            <div class="carousel-slide">
+              <img src="photo3.jpg" alt="Memory 3"
+                onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22360%22%3E%3Crect width=%22600%22 height=%22360%22 fill=%22%23fdf0c8%22/%3E%3Ctext x=%2250%25%22 y=%2243%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2272%22%3E✨%3C/text%3E%3Ctext x=%2250%25%22 y=%2265%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2218%22 fill=%22%23a07820%22 font-family=%22sans-serif%22%3EReplace with photo3.jpg%3C/text%3E%3C/svg%3E'" />
+              <div class="slide-caption">Golden moments, golden memories ✨</div>
+            </div>
+
+            <div class="carousel-slide">
+              <img src="photo4.jpg" alt="Memory 4"
+                onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22360%22%3E%3Crect width=%22600%22 height=%22360%22 fill=%22%23d0f0e8%22/%3E%3Ctext x=%2250%25%22 y=%2243%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2272%22%3E🌷%3C/text%3E%3Ctext x=%2250%25%22 y=%2265%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2218%22 fill=%22%23308060%22 font-family=%22sans-serif%22%3EReplace with photo4.jpg%3C/text%3E%3C/svg%3E'" />
+              <div class="slide-caption">Side by side, always 🌷</div>
+            </div>
+
+            <div class="carousel-slide">
+              <img src="photo5.jpg" alt="Memory 5"
+                onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22360%22%3E%3Crect width=%22600%22 height=%22360%22 fill=%22%23f9e8d0%22/%3E%3Ctext x=%2250%25%22 y=%2243%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2272%22%3E🎂%3C/text%3E%3Ctext x=%2250%25%22 y=%2265%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2218%22 fill=%22%23a05020%22 font-family=%22sans-serif%22%3EReplace with photo5.jpg%3C/text%3E%3C/svg%3E'" />
+              <div class="slide-caption">Celebrating YOU, today and every day 🎂</div>
+            </div>
+
+          </div>
+        </div>
+
+        <button class="carousel-btn next" id="nextBtn" aria-label="Next photo">&#8594;</button>
+
+        <div class="carousel-dots" id="carouselDots"></div>
+        <p class="carousel-counter" id="carouselCounter">1 / 5</p>
+      </div>
+    </section>
+
     <!-- ====== HEARTFELT MESSAGE ====== -->
     <section class="message-card">
       <h2>A little note, from the heart 💌</h2>
@@ -583,6 +781,62 @@
       if (frame) cancelAnimationFrame(frame);
       draw();
     }
+
+
+
+    /* -------------------------------------------
+       IMAGE CAROUSEL
+       ------------------------------------------- */
+    (function () {
+      const track    = document.getElementById('carouselTrack');
+      const dotsWrap = document.getElementById('carouselDots');
+      const counter  = document.getElementById('carouselCounter');
+      const slides   = Array.from(track.querySelectorAll('.carousel-slide'));
+      let current    = 0;
+      let autoTimer  = null;
+
+      // Build dot indicators dynamically
+      slides.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        d.addEventListener('click', () => { resetAuto(); goTo(i); });
+        dotsWrap.appendChild(d);
+      });
+
+      function goTo(idx) {
+        current = (idx + slides.length) % slides.length;
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        dotsWrap.querySelectorAll('.dot').forEach((d, i) =>
+          d.classList.toggle('active', i === current));
+        counter.textContent = (current + 1) + ' / ' + slides.length;
+      }
+
+      function next() { goTo(current + 1); }
+      function prev() { goTo(current - 1); }
+
+      document.getElementById('nextBtn').addEventListener('click', () => { resetAuto(); next(); });
+      document.getElementById('prevBtn').addEventListener('click', () => { resetAuto(); prev(); });
+
+      // Auto-advance every 4 s
+      function startAuto() { autoTimer = setInterval(next, 4000); }
+      function resetAuto()  { clearInterval(autoTimer); startAuto(); }
+      startAuto();
+
+      // Swipe / touch support
+      let touchStartX = 0;
+      track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend',   e => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) { resetAuto(); diff > 0 ? next() : prev(); }
+      });
+
+      // Keyboard arrow support
+      document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight') { resetAuto(); next(); }
+        if (e.key === 'ArrowLeft')  { resetAuto(); prev(); }
+      });
+    })();
 
     /* Keep canvas sized to window */
     window.addEventListener('resize', () => {
