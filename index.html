@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✏️ CHANGE THE TAB TITLE HERE -->
+  <title>Happy Birthday, Sis! 🎂</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =============================================
+       ROOT VARIABLES — tweak colors here globally
+       ============================================= */
+    :root {
+      --pink:        #f9a8c9;
+      --rose:        #e8648a;
+      --lilac:       #c9a8f9;
+      --purple:      #9b72d4;
+      --gold:        #f5c842;
+      --cream:       #fff8f2;
+      --text-dark:   #3a1f3b;
+      --text-mid:    #6b4478;
+      --shadow:      rgba(155, 114, 212, 0.25);
+    }
+
+    /* =============================================
+       RESET & BASE
+       ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* =============================================
+       ANIMATED GRADIENT BACKGROUND
+       ============================================= */
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(135deg,
+        #ffe4f3 0%,
+        #f3e4ff 30%,
+        #fff4d6 60%,
+        #ffe4f3 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 12s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* =============================================
+       FLOATING PETALS
+       ============================================= */
+    .petals-wrap {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      top: -60px;
+      font-size: 1.4rem;
+      animation: floatDown linear infinite;
+      opacity: 0.7;
+    }
+
+    /* Stagger each petal */
+    .petal:nth-child(1)  { left:  5%; animation-duration: 9s;  animation-delay: 0s;    font-size: 1.2rem; }
+    .petal:nth-child(2)  { left: 12%; animation-duration: 12s; animation-delay: 2s;    font-size: 1rem;   }
+    .petal:nth-child(3)  { left: 20%; animation-duration: 10s; animation-delay: 4s;    }
+    .petal:nth-child(4)  { left: 30%; animation-duration: 14s; animation-delay: 1s;    font-size: 1.6rem; }
+    .petal:nth-child(5)  { left: 40%; animation-duration: 11s; animation-delay: 3s;    }
+    .petal:nth-child(6)  { left: 50%; animation-duration: 13s; animation-delay: 0.5s;  font-size: 1.1rem; }
+    .petal:nth-child(7)  { left: 60%; animation-duration: 9s;  animation-delay: 5s;    }
+    .petal:nth-child(8)  { left: 70%; animation-duration: 15s; animation-delay: 1.5s;  font-size: 1.8rem; }
+    .petal:nth-child(9)  { left: 80%; animation-duration: 10s; animation-delay: 2.5s;  }
+    .petal:nth-child(10) { left: 90%; animation-duration: 12s; animation-delay: 3.5s;  font-size: 0.9rem; }
+
+    @keyframes floatDown {
+      0%   { transform: translateY(-60px) rotate(0deg);   opacity: 0;   }
+      10%  { opacity: 0.7; }
+      90%  { opacity: 0.5; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0;   }
+    }
+
+    /* =============================================
+       PAGE WRAPPER
+       ============================================= */
+    .page {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1.5rem 5rem;
+      gap: 3rem;
+    }
+
+    /* =============================================
+       HERO SECTION
+       ============================================= */
+    .hero {
+      text-align: center;
+      animation: fadeUp 1s ease both;
+    }
+
+    .hero .emoji-row {
+      font-size: 2.2rem;
+      letter-spacing: 0.4rem;
+      margin-bottom: 1rem;
+      animation: bounce 2s infinite;
+    }
+
+    /* ✏️ THE BIG HEADING — edit the text in the HTML below */
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 7vw, 5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      background: linear-gradient(135deg, var(--rose), var(--purple), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 2px 8px var(--shadow));
+    }
+
+    .hero .sub {
+      margin-top: 0.75rem;
+      font-size: 1.1rem;
+      color: var(--text-mid);
+      font-style: italic;
+      letter-spacing: 0.05em;
+    }
+
+    /* =============================================
+       PHOTO CARD
+       ============================================= */
+    .photo-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      animation: fadeUp 1s 0.3s ease both;
+    }
+
+    /* ✏️ REPLACE THE IMAGE — change src="sister.jpg" below */
+    .photo-frame {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 6px solid white;
+      box-shadow:
+        0 0 0 4px var(--pink),
+        0 10px 40px var(--shadow),
+        0 2px 8px rgba(0,0,0,0.12);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .photo-frame:hover {
+      transform: scale(1.06) rotate(2deg);
+      box-shadow:
+        0 0 0 6px var(--lilac),
+        0 16px 50px var(--shadow),
+        0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-caption {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--text-mid);
+      font-size: 0.95rem;
+    }
+
+    /* =============================================
+       MESSAGE CARD
+       ============================================= */
+    .message-card {
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1.5px solid rgba(255,255,255,0.9);
+      border-radius: 28px;
+      padding: 2.5rem 2.8rem;
+      max-width: 640px;
+      width: 100%;
+      box-shadow: 0 8px 40px var(--shadow), 0 2px 8px rgba(0,0,0,0.06);
+      animation: fadeUp 1s 0.5s ease both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .message-card::before {
+      content: '❝';
+      position: absolute;
+      top: -10px;
+      left: 20px;
+      font-size: 7rem;
+      color: var(--pink);
+      opacity: 0.25;
+      font-family: 'Playfair Display', serif;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .message-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--rose);
+      margin-bottom: 1rem;
+    }
+
+    /* ✏️ EDIT THE HEARTFELT MESSAGE — change the <p> tags below */
+    .message-card p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--text-dark);
+      font-weight: 300;
+      margin-bottom: 0.8rem;
+    }
+
+    .message-card p:last-child { margin-bottom: 0; }
+
+    /* =============================================
+       SURPRISE BUTTON
+       ============================================= */
+    .surprise-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      animation: fadeUp 1s 0.7s ease both;
+    }
+
+    .btn-surprise {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      padding: 1rem 2.8rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--rose), var(--purple));
+      color: white;
+      letter-spacing: 0.04em;
+      box-shadow: 0 6px 24px var(--shadow), 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-surprise::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.25), transparent);
+      border-radius: inherit;
+    }
+
+    .btn-surprise:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 12px 32px var(--shadow), 0 4px 10px rgba(0,0,0,0.12);
+      filter: brightness(1.08);
+    }
+
+    .btn-surprise:active {
+      transform: scale(0.97);
+    }
+
+    /* ✏️ EDIT THE SURPRISE MESSAGE — change the text in .surprise-msg below */
+    .surprise-msg {
+      display: none;
+      max-width: 560px;
+      text-align: center;
+      background: linear-gradient(135deg, #fff0f8, #f8f0ff);
+      border: 2px dashed var(--pink);
+      border-radius: 20px;
+      padding: 2rem 2.4rem;
+      box-shadow: 0 6px 28px var(--shadow);
+      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    }
+
+    .surprise-msg.visible { display: block; }
+
+    .surprise-msg .surprise-icon { font-size: 2.8rem; margin-bottom: 0.6rem; }
+
+    .surprise-msg h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--purple);
+      margin-bottom: 0.8rem;
+    }
+
+    .surprise-msg p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-mid);
+      font-weight: 300;
+    }
+
+    /* =============================================
+       FOOTER
+       ============================================= */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      letter-spacing: 0.04em;
+      animation: fadeUp 1s 1s ease both;
+    }
+
+    footer span { color: var(--rose); }
+
+    /* =============================================
+       CONFETTI CANVAS (JS-driven)
+       ============================================= */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* =============================================
+       KEYFRAME ANIMATIONS
+       ============================================= */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0);    }
+      50%       { transform: translateY(-8px); }
+    }
+
+    @keyframes popIn {
+      0%   { opacity: 0; transform: scale(0.7) rotate(-2deg); }
+      100% { opacity: 1; transform: scale(1)   rotate(0deg);  }
+    }
+
+    /* =============================================
+       RESPONSIVE
+       ============================================= */
+    @media (max-width: 500px) {
+      .message-card { padding: 1.8rem 1.6rem; }
+      .photo-frame  { width: 180px; height: 180px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Animated gradient background -->
+  <div class="bg-layer"></div>
+
+  <!-- Floating petals/hearts -->
+  <div class="petals-wrap" aria-hidden="true">
+    <span class="petal">🌸</span>
+    <span class="petal">💖</span>
+    <span class="petal">🌷</span>
+    <span class="petal">✨</span>
+    <span class="petal">🌸</span>
+    <span class="petal">💜</span>
+    <span class="petal">🌷</span>
+    <span class="petal">💛</span>
+    <span class="petal">🌸</span>
+    <span class="petal">💝</span>
+  </div>
+
+  <!-- Confetti canvas (activated on button click) -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <div class="page">
+
+    <!-- ====== HERO ====== -->
+    <section class="hero">
+      <div class="emoji-row">🎂 🎉 🎊 🎈</div>
+
+      <!-- ✏️ CHANGE THE NAME — edit the text inside <h1> -->
+      <h1>Happy Birthday, Sis!</h1>
+
+      <!-- ✏️ CHANGE THE SUBTITLE — edit the text inside <p class="sub"> -->
+      <p class="sub">Today, the world is a little brighter because of you. 🌟</p>
+    </section>
+
+    <!-- ====== PHOTO ====== -->
+    <section class="photo-card">
+      <div class="photo-frame">
+        <!--
+          ✏️ REPLACE YOUR SISTER'S PHOTO:
+          Change src="sister.jpg" to the actual image path or URL.
+          Example: src="photos/my-sister.jpg"
+                or src="https://example.com/photo.jpg"
+        -->
+        <img
+          src="sister.jpg"
+          alt="A photo of my wonderful sister"
+          onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22220%22 height=%22220%22%3E%3Crect width=%22220%22 height=%22220%22 fill=%22%23f9d0e8%22/%3E%3Ctext x=%2250%25%22 y=%2244%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2256%22%3E🌸%3C/text%3E%3Ctext x=%2250%25%22 y=%2268%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2214%22 fill=%22%23b05080%22 font-family=%22sans-serif%22%3EAdd your photo%3C/text%3E%3C/svg%3E'"
+        />
+      </div>
+      <p class="photo-caption">The most beautiful soul I know 💕</p>
+    </section>
+
+    <!-- ====== HEARTFELT MESSAGE ====== -->
+    <section class="message-card">
+      <h2>A little note, from the heart 💌</h2>
+
+      <!--
+        ✏️ EDIT YOUR MESSAGE:
+        Change the text in the <p> tags below to your own words.
+        Add or remove <p> blocks as needed.
+      -->
+      <p>
+        Sis, there are so many things I could say — that you're brilliant, kind,
+        and impossibly funny — but none of those words quite capture what it means
+        to have you as my sister.
+      </p>
+      <p>
+        You've been my first best friend, my biggest cheerleader, and the person
+        I call when the world feels too heavy. Every single day I'm grateful for the
+        laughter, the secrets, and the memories we've built together.
+      </p>
+      <p>
+        On this special day, I hope you feel every bit as loved as you make
+        everyone around you feel. You deserve the universe — and I'll spend every
+        birthday trying to remind you of that. 🌙
+      </p>
+    </section>
+
+    <!-- ====== SURPRISE BUTTON ====== -->
+    <section class="surprise-section">
+      <button class="btn-surprise" id="surpriseBtn" onclick="revealSurprise()">
+        🎁 &nbsp;Tap for a little surprise…
+      </button>
+
+      <!--
+        ✏️ EDIT THE SURPRISE MESSAGE:
+        Change the <h3> title and <p> text below.
+      -->
+      <div class="surprise-msg" id="surpriseMsg">
+        <div class="surprise-icon">🥂✨</div>
+        <h3>Here's to YOU, always.</h3>
+        <p>
+          Wishing you a year overflowing with joy, adventures, spontaneous
+          dance parties, good food, and all the things that make your heart
+          sing. No matter where life takes us, I'll always be in your corner —
+          cheering the loudest, hugging the tightest.
+          <br/><br/>
+          I love you more than words can say. Happy Birthday! 🎂💜
+        </p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ====== FOOTER ====== -->
+  <footer>
+    <!-- ✏️ CHANGE THE FOOTER TEXT if you like -->
+    Made with <span>♥</span> for the most wonderful sister in the world.
+  </footer>
+
+
+  <!-- =============================================
+       JAVASCRIPT
+       ============================================= -->
+  <script>
+    /* -------------------------------------------
+       SURPRISE MESSAGE — reveal on button click
+       ------------------------------------------- */
+    function revealSurprise() {
+      const msg = document.getElementById('surpriseMsg');
+      const btn = document.getElementById('surpriseBtn');
+
+      if (!msg.classList.contains('visible')) {
+        msg.classList.add('visible');
+        btn.textContent = '🎉  Wishing you the best!';
+        btn.style.background = 'linear-gradient(135deg, #f5c842, #e8648a)';
+        launchConfetti();   // 🎊 trigger confetti
+      }
+    }
+
+
+    /* -------------------------------------------
+       CONFETTI — pure JS, no library needed
+       ------------------------------------------- */
+    function launchConfetti() {
+      const canvas  = document.getElementById('confetti-canvas');
+      const ctx     = canvas.getContext('2d');
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const COLORS = ['#f9a8c9','#c9a8f9','#f5c842','#e8648a','#9b72d4','#f3c1e0','#fff'];
+      const SHAPES = ['circle','rect','triangle'];
+      const TOTAL  = 140;
+      const pieces = [];
+
+      for (let i = 0; i < TOTAL; i++) {
+        pieces.push({
+          x:     Math.random() * canvas.width,
+          y:     Math.random() * canvas.height - canvas.height,
+          size:  Math.random() * 9 + 5,
+          color: COLORS[Math.floor(Math.random() * COLORS.length)],
+          shape: SHAPES[Math.floor(Math.random() * SHAPES.length)],
+          speedY: Math.random() * 3 + 2,
+          speedX: (Math.random() - 0.5) * 2,
+          rot:   Math.random() * 360,
+          rotSpeed: (Math.random() - 0.5) * 6,
+          opacity: 1,
+        });
+      }
+
+      let frame;
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let alive = 0;
+
+        pieces.forEach(p => {
+          p.y       += p.speedY;
+          p.x       += p.speedX;
+          p.rot     += p.rotSpeed;
+          if (p.y > canvas.height * 0.8) p.opacity -= 0.018;
+
+          if (p.opacity > 0) {
+            alive++;
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, p.opacity);
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.rot * Math.PI) / 180);
+            ctx.fillStyle = p.color;
+
+            if (p.shape === 'circle') {
+              ctx.beginPath();
+              ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+              ctx.fill();
+            } else if (p.shape === 'rect') {
+              ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+            } else {
+              ctx.beginPath();
+              ctx.moveTo(0, -p.size / 2);
+              ctx.lineTo( p.size / 2,  p.size / 2);
+              ctx.lineTo(-p.size / 2,  p.size / 2);
+              ctx.closePath();
+              ctx.fill();
+            }
+            ctx.restore();
+          }
+        });
+
+        if (alive > 0) {
+          frame = requestAnimationFrame(draw);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+
+      if (frame) cancelAnimationFrame(frame);
+      draw();
+    }
+
+    /* Keep canvas sized to window */
+    window.addEventListener('resize', () => {
+      const canvas = document.getElementById('confetti-canvas');
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+
+</body>
+</html>
